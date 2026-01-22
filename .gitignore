@@ -34,6 +34,7 @@ Thumbs.db
 
 # If you want ONLY those .pkl tracked (and no other .pkl anywhere else), ignore .pkl globally:
 *.pkl
+*.h5
 !trained_painting_NNs/**/*.pkl
 
 # =========================
