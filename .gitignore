@@ -1,0 +1,66 @@
+# =========================
+# Core: keep code + notebooks + PBS
+# =========================
+!*.py
+!*.ipynb
+!*.pbs
+!*.yml
+!*.yaml
+
+# =========================
+# Always ignore common Python/Jupyter clutter
+# =========================
+__pycache__/
+*.py[cod]
+*.so
+*.dylib
+*.egg-info/
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+*~
+*.swp
+.vscode/
+.idea/
+
+# =========================
+# Include specific project assets you called out
+# =========================
+!python_profiler
+
+# Keep trained_painting_NNs INCLUDING all .pkl inside it
+!trained_painting_NNs/
+!trained_painting_NNs/**/*.pkl
+
+# If you want ONLY those .pkl tracked (and no other .pkl anywhere else), ignore .pkl globally:
+*.pkl
+!trained_painting_NNs/**/*.pkl
+
+# =========================
+# Keep directories, ignore all their contents
+# (add .gitkeep in each dir so Git tracks them)
+# =========================
+cProfilerResults/*
+!cProfilerResults/
+!cProfilerResults/.gitkeep
+
+mocks/*
+!mocks/
+!mocks/.gitkeep
+
+plots/*
+!plots/
+!plots/.gitkeep
+
+tmp_outs/*
+!tmp_outs/
+!tmp_outs/.gitkeep
+
+# =========================
+# Ignore fully
+# =========================
+SuperMock_raw/
+old_codes/
+
+# (Optional) other directories you may want ignored; uncomment if desired
+# old_codes/
