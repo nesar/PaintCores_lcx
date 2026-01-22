@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -N c128_g2_149_large
+#PBS -A FASTBAYES
+#PBS -l select=1:ncpus=128:ngpus=2
+#PBS -l walltime=24:00:00
+#PBS -q gpu-large
+
+##### skypatchID: 0-191
+##### g1 doesn't work
+##### g2 works
+##### g1 large works
+
+##### qsub -I -l select=1:ncpus=128:ngpus=8 -l walltime=24:00:00 -A cosmo_ai -q gpu-large
+
+source /home/nramachandra/.bashrc
+conda activate env_jax_2024
+
+module purge
+
+module load gcc/9.2.0-r4tyw54 openmpi/4.1.0-cuda11.0.2-tyz7hlj cuda/11.2.1 cudnn/8.1.1.33
+
+cd /lcrc/project/cosmo_ai/nramachandra/Projects/SPHEREx/MAH/HACCnPaint/Cores/PaintCores_lcx/
+
+echo "Running on $(hostname)"
+python CLEAN_supermock.py --skypatchID 149 >> outfile_149.txt 2>&1

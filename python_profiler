@@ -1,0 +1,97 @@
+
+if [ "$1" == "-h" ]; then
+  echo "\n This Script can be used to profile python scripts, and show profiler results on a linux/mac system"
+  
+  echo "\n================================================="
+  echo "   Usage: <sh> python_profiler.sh [Python Script]"
+  echo "==================================================\n\n"
+      
+  echo " + To use this script, you need to have gprof2dot installed on your system"
+  echo "   e.g.\n\t \$ brew install gprof2dot \t (Mac),  OR"
+  echo "       \r\t \$ apt-get install gprof2dot \t (Ubuntu) "
+  echo "       \r\t etc."
+  
+  echo "\n + You will also need SVG viewer;"
+  echo "    - For Mac you can use Gapplin: http://gapplin.wolfrosch.com/"
+  echo "    - For Linux, try using ImageMagick: https://www.imagemagick.org/script/index.php\n"
+  
+  echo "\n==================================="
+  echo "Author: Ahmed Attia (attia@anl.gov)"
+  echo "===================================\n"
+  exit 0
+fi
+
+[ $# -ge 1 -a -f "$1" ] && scriptname="$1" || scriptname="-"
+
+if [ "$scriptname" == "-" ]; then
+  echo "\n\n *ERROR* You must specify a script name after the script identifier:\n"
+  echo "\t Usage: <sh> ./profile.sh [script name .py] \n\n"
+  exit 0
+fi
+
+#
+# good to go; clear screen, and start script
+# ------------------------------------------
+clear
+
+
+echo "\n Welcome to the PythonProfiler script..."
+echo "===========================================\n"
+
+
+# Define directories/files names
+# ------------------------------
+CWD=$PWD
+resultsdir="cProfilerResults"
+statsfile="profile.pstats"
+statsplot="ProfilerGraphs.svg"
+
+
+
+# Cleanup old results
+# -------------------
+if [ -d "$resultsdir" ]; then
+  echo "\n Cleaning up old profiling results..."
+  if [ "$(ls -A $CWD/$resultsdir)" ]; then
+    echo "  ... Removing contents of: $CWD/$resultsdir\n"
+    rm -r ${CWD}/${resultsdir}/*
+  else
+    echo "  ... Nothing found in the profiler results directory: ${CWD}/${resultsdir}/ \n  ... Proceeding ...\n"
+  fi
+else
+  echo "\n Creating profiling results director...\n"
+  mkdir $resultsdir
+fi
+
+
+echo "********************"   
+echo "   BEGIN PROFILING  "
+echo "********************\n"
+
+# Start profiling
+# ---------------
+echo "+++++++++++++++++++++++++++++++++++++++++++"
+echo "+++++++++++++++++++++++++++++++++++++++++++"
+echo "+++++   Running the requested script  +++++"
+echo "+++++++++++++++++++++++++++++++++++++++++++"
+echo "+++++++++++++++++++++++++++++++++++++++++++\n"
+
+python -m cProfile -o ${CWD}/${resultsdir}/${statsfile} ${CWD}/${scriptname}
+
+echo "\n Plotting the Profiler Statistics to file [$statsfile] located in: [$CWD] ..."
+gprof2dot -f pstats ${CWD}/${resultsdir}/${statsfile} | dot -Tsvg -o ${CWD}/${resultsdir}/${statsplot}
+
+# trying to open profiler sVG plot
+# --------------------------------
+echo "\n\n Trying to open the Profiler Plot $statsplot"
+open ${CWD}/${resultsdir}/${statsplot}
+
+
+echo "\n\t Profiling results are saved in Folder [${CWD}/${resultsdir}]\n"
+echo "\t   + Profiling Stats File: [$statsfile]"
+echo "\t   + Profiling Stats Plot: [$statsplot]\n"
+
+echo "********************"
+echo "   DONE PROFILING   "
+echo "********************\n"
+

@@ -1,0 +1,41 @@
+hacc_simulation:
+    name: LastJourney
+    side_length: 5025
+    coreforestID: 19
+    skypatchID: 4
+    core_matrix_dir: /lcrc/group/cosmodata/simulations/LastJourney/coretrees/
+    lightcone_dir: /lcrc/group/cosmodata/simulations/LastJourney/halo_lightcone_LJ/matched_output/
+  
+  
+reference_simulation:
+    name: SMDPL
+    side_length: 400
+    sim_dir: /lcrc/project/halotools/UniverseMachine/SMDPL/sfh_binaries_dr1_bestfit/
+ 
+
+hacc_reference_connection:
+    closest_num: 2
+  
+
+painting_model:
+    model_dir: /lcrc/project/cosmo_ai/nramachandra/Projects/Ulab_ldrd/emulator_utils/test/model/
+    # wavelength_dir: /lcrc/project/cosmo_ai/nramachandra/Projects/SPHEREx/MAH/TrainingData/Data/Damp_red/
+    wavelength_dir: /lcrc/project/cosmo_ai/nramachandra/Projects/SPHEREx/MAH/TrainingData/Data/
+    spherex_filter_dir: /lcrc/project/cosmo_ai/nramachandra/Projects/SPHEREx/MAH/TrainingData/Data/Filter_definitions/SPHEREx/spherex_filters102/
+    sdss_filter_dir: /lcrc/project/cosmo_ai/nramachandra/Projects/SPHEREx/MAH/TrainingData/Data/Filter_definitions/SDSS/
+    cosmos_filter_dir: /lcrc/project/cosmo_ai/nramachandra/Projects/SPHEREx/MAH/TrainingData/Data/Filter_definitions/COSMOS/cosmos_filters/
+    wave_min: 90
+    wave_max: 100000
+    plot_frequency: 500
+    
+    lsst_filter_pickle: /lcrc/project/cosmo_ai/nramachandra/Projects/Hydro_paint/watercolor/watercolor/data/filter_specifics/LSST.pickle
+    cosmos_filter_pickle: /lcrc/project/cosmo_ai/nramachandra/Projects/Hydro_paint/watercolor/watercolor/data/filter_specifics/COSMOS.pickle
+    spherex_filter_pickle: /lcrc/project/cosmo_ai/nramachandra/Projects/Hydro_paint/watercolor/watercolor/data/filter_specifics/SPHEREx.pickle
+    wise_filter_pickle: /lcrc/project/cosmo_ai/nramachandra/Projects/Hydro_paint/watercolor/watercolor/data/filter_specifics/WISE.pickle
+    legacysurvey_filter_pickle: /lcrc/project/cosmo_ai/nramachandra/Projects/Hydro_paint/watercolor/watercolor/data/filter_specifics/LEGACYSURVEY.pickle
+    mass2_filter_pickle: /lcrc/project/cosmo_ai/nramachandra/Projects/Hydro_paint/watercolor/watercolor/data/filter_specifics/2MASS.pickle  
+    f784_filter_pickle: /lcrc/project/cosmo_ai/nramachandra/Projects/Hydro_paint/watercolor/watercolor/data/filter_specifics/F784.pickle
+    
+catalog:
+    save_dir: /lcrc/project/cosmo_ai/nramachandra/Projects/SPHEREx/MAH/HACCnPaint/SyntheticCatalog/
+    catalog_name: SuperMock_v10_limited_sampling

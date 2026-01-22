@@ -1,0 +1,40 @@
+#!/bin/bash -l
+#PBS -A cosmo_ai
+#PBS -l select=4:ncpus=128:mpiprocs=128
+#PBS -l walltime=50:00:00
+#PBS -q bigmem
+#PBS -N conv5_deepR
+#PBS -j oe
+#PBS -m be
+
+# Process one skypatch
+SKYPATCH_ID=5
+
+source /home/nramachandra/.bashrc
+# conda activate env_jax_2024
+conda activate /lcrc/project/cosmo_ai/nramachandra/Projects/SPHEREx/env_jax_2025
+
+echo "Working directory: $PBS_O_WORKDIR"
+cd $PBS_O_WORKDIR
+
+echo "Job ID: $PBS_JOBID"
+echo "Running on host: $(hostname)"
+echo "Running on nodes: $(cat $PBS_NODEFILE)"
+
+# Load required modules
+module load gcc/11.4.0 
+module load openmpi/4.1.6-gcc-11.4.0-pbs
+
+module list
+which mpirun
+
+# Calculate total processes (8 nodes × 128 processes per node)
+TOTAL_PROCS=$((4*128))
+
+# Navigate to project directory
+cd /lcrc/project/cosmo_ai/nramachandra/Projects/SPHEREx/MAH/HACCnPaint/Cores/PaintCores_lcx/
+
+# Run with MPI
+mpirun -n $TOTAL_PROCS python Claude_CONVOLVE_band.py --skypatchID $SKYPATCH_ID >> outfile_${SKYPATCH_ID}_conv_mpi.txt 2>&1
+
+# mpirun -n 8 python Claude_CONVOLVE_band.py --skypatchID $SKYPATCH_ID >> outfile_${SKYPATCH_ID}_conv_mpi.txt 2>&1

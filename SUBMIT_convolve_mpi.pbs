@@ -1,0 +1,33 @@
+#!/bin/bash -l
+#PBS -A LMBioData
+#PBS -l select=2:ncpus=128:mpiprocs=128
+#PBS -l walltime=12:00:00
+#PBS -q bigmem
+#PBS -N mpiconv1
+#PBS -j oe
+#PBS -m be
+
+# Example usage of mpirun with 10 nodes, 128 ranks each = 1280 total ranks.
+# Adjust to your HPC environment.
+
+source /home/nramachandra/.bashrc
+conda activate env_jax_2024
+
+echo "Working directory: $PBS_O_WORKDIR"
+cd $PBS_O_WORKDIR
+
+echo "Job ID: $PBS_JOBID"
+echo "Running on host: $(hostname)"
+echo "Running on nodes: $(cat $PBS_NODEFILE)"
+
+# Move to the code directory
+cd /lcrc/project/cosmo_ai/nramachandra/Projects/SPHEREx/MAH/HACCnPaint/Cores/PaintCores_lcx/
+
+# Example: 1280 ranks total, each rank processes part of skypatch=1
+# mpirun -np 1280 python CONVOLVE_parallel.py --skypatchID 1
+
+
+SKYPATCH_ID1=1
+mpirun -np 256 python CONVOLVE_band.py --skypatchID $SKYPATCH_ID1 >> outfile_${SKYPATCH_ID1}b_convolve.txt 2>&1
+
+# make sure CONVOLVE_band is the mpi version

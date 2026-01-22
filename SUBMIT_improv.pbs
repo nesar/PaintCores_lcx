@@ -1,0 +1,116 @@
+#!/bin/bash -l
+#PBS -A cosmo_ai
+#PBS -l select=1:ncpus=128:mpiprocs=128
+#PBS -l walltime=72:00:00
+#PBS -q bigmem
+#PBS -N conv3_try2
+#PBS -j oe
+#PBS -m be
+
+### qsub -I -l select=1:ncpus=128:mpiprocs=128 -l walltime=24:00:00 -A cosmo_ai -q bigmem or compute
+### qsub -I -l select=1:ncpus=128:mpiprocs=128 -l walltime=24:00:00 -A cosmo_ai -q bigmem or compute
+
+##### skypatchID range: 0-191
+
+
+##############################
+
+SKYPATCH_ID1=4
+SKYPATCH_ID2=1
+SKYPATCH_ID3=3
+SKYPATCH_ID4=3
+SKYPATCH_ID5=5
+
+SKYPATCH_ID6=2
+SKYPATCH_ID7=6
+SKYPATCH_ID8=7
+SKYPATCH_ID9=8
+SKYPATCH_ID10=9
+
+SKYPATCH_ID11=16
+SKYPATCH_ID12=17
+SKYPATCH_ID13=18
+SKYPATCH_ID14=19
+SKYPATCH_ID15=20
+
+SKYPATCH_ID16=25
+SKYPATCH_ID17=26
+SKYPATCH_ID18=27
+SKYPATCH_ID19=28
+SKYPATCH_ID20=29
+
+SKYPATCH_ID30=30
+
+##############################
+
+##############################
+
+source /home/nramachandra/.bashrc
+conda activate env_jax_2024
+
+echo "Working directory: $PBS_O_WORKDIR"
+cd $PBS_O_WORKDIR
+
+echo "Job ID: $PBS_JOBID"
+echo "Running on host: $(hostname)"
+echo "Running on nodes: $(cat $PBS_NODEFILE)"
+
+# Loading GCC and MPI modules, and verifying the environment.
+# module load gcc/11.4.0 
+# module load openmpi/4.1.6-gcc-11.4.0-pbs
+
+# module list
+# which mpirun
+
+##############################
+
+cd /lcrc/project/cosmo_ai/nramachandra/Projects/SPHEREx/MAH/HACCnPaint/Cores/PaintCores_lcx/
+
+# python CLEAN_supermock.py --skypatchID $SKYPATCH_ID1 >> outfile_${SKYPATCH_ID1}.txt 2>&1
+# python CLEAN_supermock.py --skypatchID $SKYPATCH_ID2 >> outfile_${SKYPATCH_ID2}.txt 2>&1
+# python CLEAN_supermock.py --skypatchID $SKYPATCH_ID3 >> outfile_${SKYPATCH_ID3}.txt 2>&1
+
+# python CLEAN_supermock.py --skypatchID $SKYPATCH_ID4 >> outfile_${SKYPATCH_ID4}.txt 2>&1
+# python CLEAN_supermock.py --skypatchID $SKYPATCH_ID5 >> outfile_${SKYPATCH_ID5}.txt 2>&1
+# python CLEAN_supermock.py --skypatchID $SKYPATCH_ID6 >> outfile_${SKYPATCH_ID6}.txt 2>&1
+
+# python CLEAN_supermock.py --skypatchID $SKYPATCH_ID7 >> outfile_${SKYPATCH_ID7}.txt 2>&1
+# python CLEAN_supermock.py --skypatchID $SKYPATCH_ID8 >> outfile_${SKYPATCH_ID8}.txt 2>&1
+python CLEAN_supermock.py --skypatchID $SKYPATCH_ID9 >> outfile_${SKYPATCH_ID9}.txt 2>&1
+
+
+
+##############################
+
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID1 >> outfile_${SKYPATCH_ID1}_paint.txt 2>&1
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID2 >> outfile_${SKYPATCH_ID2}_paint.txt 2>&1
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID3 >> outfile_${SKYPATCH_ID3}_paint.txt 2>&1
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID4 >> outfile_${SKYPATCH_ID4}_paint.txt 2>&1
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID5 >> outfile_${SKYPATCH_ID5}_paint.txt 2>&1
+
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID6 >> outfile_${SKYPATCH_ID6}_paint.txt 2>&1
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID7 >> outfile_${SKYPATCH_ID7}_paint.txt 2>&1
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID8 >> outfile_${SKYPATCH_ID8}_paint.txt 2>&1
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID9 >> outfile_${SKYPATCH_ID9}_paint.txt 2>&1
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID10 >> outfile_${SKYPATCH_ID10}_paint.txt 2>&1
+
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID11 >> outfile_${SKYPATCH_ID11}_paint.txt 2>&1
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID12 >> outfile_${SKYPATCH_ID12}_paint.txt 2>&1
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID13 >> outfile_${SKYPATCH_ID13}_paint.txt 2>&1
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID14 >> outfile_${SKYPATCH_ID14}_paint.txt 2>&1
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID15 >> outfile_${SKYPATCH_ID15}_paint.txt 2>&1
+
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID16 >> outfile_${SKYPATCH_ID16}_paint.txt 2>&1
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID17 >> outfile_${SKYPATCH_ID17}_paint.txt 2>&1
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID18 >> outfile_${SKYPATCH_ID18}_paint.txt 2>&1
+# python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID19 >> outfile_${SKYPATCH_ID19}_paint.txt 2>&1
+python DEPLOY_paint2d.py --skypatchID $SKYPATCH_ID20 >> outfile_${SKYPATCH_ID20}_paint.txt 2>&1
+
+
+##############################
+
+
+# python CONVOLVE_band.py --skypatchID $SKYPATCH_ID1 >> outfile_${SKYPATCH_ID1}_conv.txt 2>&1
+# python CONVOLVE_band.py --skypatchID $SKYPATCH_ID2 >> outfile_${SKYPATCH_ID2}_conv.txt 2>&1
+# python CONVOLVE_band.py --skypatchID $SKYPATCH_ID3 >> outfile_${SKYPATCH_ID3}_conv.txt 2>&1
+python CONVOLVE_band.py --skypatchID $SKYPATCH_ID4 >> outfile_${SKYPATCH_ID4}_conv.txt 2>&1
